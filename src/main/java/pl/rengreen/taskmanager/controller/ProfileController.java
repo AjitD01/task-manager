@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.rengreen.taskmanager.model.User;
 import pl.rengreen.taskmanager.service.TaskService;
 import pl.rengreen.taskmanager.service.UserService;
@@ -43,5 +45,13 @@ public class ProfileController {
         taskService.setTaskNotCompleted(taskId);
         return "redirect:/profile";
     }
+
+    @PostMapping("/profile/reset-password")
+    public String resetPassword(@RequestParam("password") String newPassword, Principal principal) {
+        String email = principal.getName();
+        userService.resetPassword(email, newPassword);
+        return "redirect:/profile"; // Redirect to profile after password reset
+    }
+
 
 }

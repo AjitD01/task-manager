@@ -76,5 +76,15 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(user);
     }
 
+    @Override
+    public void resetPassword(String email, String newPassword) {
+        User user = getUserByEmail(email);
+        if (user != null) {
+            user.setPassword(bCryptPasswordEncoder.encode(newPassword)); // Ensure to hash the password
+            // Save the updated user with the new password
+            userRepository.save(user);
+        }
+    }
+
 }
 

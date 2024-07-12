@@ -33,8 +33,9 @@
                 </div>
             </div>
 
-            <table class="my-tab table text-left">
 
+
+            <table class="my-tab table text-left">
                 <thead class="table-info">
                 <tr>
                     <th style="width:20%">Task name</th>
@@ -42,15 +43,12 @@
                     <th style="width:16%">Date</th>
                     <th style="width:7%">Days left</th>
                     <th style="width:7%">Completed</th>
-
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="t : ${tasksOwned}">
-
                     <td class="text-left" th:text="${t.name}"></td>
                     <td class="text-left d-none d-sm-table-cell" th:text="${t.description}"></td>
-
                     <td th:text="${#temporals.format(t.date, 'dd-MM-yyyy')}"></td>
 
                     <!--Days left-->
@@ -65,7 +63,6 @@
                         ><i th:class="${t.completed} ? 'far fa-check-square my-check':'far fa-square my-check'"></i>
                         </a>
                     </td>
-
                 </tr>
 
                 <tr th:if="${user.tasksOwned.size()==0}">
@@ -73,6 +70,16 @@
                 </tr>
                 </tbody>
             </table>
+            <form method="post" action="/profile/reset-password" th:action="@{/profile/reset-password}">
+                <!-- Include CSRF token -->
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+                <div class="form-group">
+                    <label for="password">New Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Reset Password</button>
+            </form>
         </div>
     </div>
 </main>

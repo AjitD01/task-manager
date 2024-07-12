@@ -1,55 +1,28 @@
-<!--show password when mouse is over eye icon-->
-$(".show-password").hover(
-    function () {
-        $("#password").attr("type", "text").focus();
-    },
-    function () {
-        $("#password").attr("type", "password");
-    }
-);
-
-//remain scroll position after redirect
-$(window).scroll(function () {
-    sessionStorage.scrollTop = $(this).scrollTop();
-});
-
 $(document).ready(function () {
+// Display a welcome message or introduction
+    $("#welcomeMessage").text("Welcome to Task Manager, your tool for efficient task management.");
+
+// Scroll position persistence
+    $(window).scroll(function () {
+        sessionStorage.scrollTop = $(this).scrollTop();
+    });
+
     if (sessionStorage.scrollTop !== "undefined") {
         $(window).scrollTop(sessionStorage.scrollTop);
     }
-});
 
-//DataTable plug-in
-$(document).ready(function () {
-    $('#sortableTable').DataTable(
-        {
-            columnDefs: [
-                {
-                    ordering: false,
-                    targets: [6, 7]
-                }
-            ],
-            pageLength: 25
-        });
-    $('.dataTables_length').addClass('bs-select');
-});
-
-//demo accounts
-$(document).ready(function () {
-    $("#demo-manager-btn").click(function () {
-        $("#email").val("manager@mail.com");
-        $("#password").val("112233");
-    });
-});
-$(document).ready(function () {
-    $("#demo-ann-btn").click(function () {
-        $("#email").val("ann@mail.com");
-        $("#password").val("112233");
-    });
-});
-$(document).ready(function () {
-    $("#demo-mark-btn").click(function () {
-        $("#email").val("mark@mail.com");
-        $("#password").val("112233");
+// DataTables plug-in configuration
+    $('#taskTable').DataTable({
+        columnDefs: [
+            { ordering: false, targets: [4, 5] } // Disable sorting on columns 4 and 5
+        ],
+        pageLength: 25, // Show 25 records per page by default
+        lengthMenu: [10, 25, 50, 100], // Define length menu options
+        language: {
+            paginate: {
+                next: '<i class="fas fa-angle-right"></i>', // Custom pagination icons
+                previous: '<i class="fas fa-angle-left"></i>'
+            }
+        }
     });
 });
